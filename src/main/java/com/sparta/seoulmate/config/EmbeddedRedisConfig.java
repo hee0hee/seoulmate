@@ -1,5 +1,6 @@
 package com.sparta.seoulmate.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,12 +25,8 @@ public class EmbeddedRedisConfig {
     @Value(value = "${spring.data.redis.password}")
     private String redisPassword;
 
-
+    @Autowired
     private Environment environment;
-
-    public EmbeddedRedisConfig(Environment environment) {
-        this.environment = environment;
-    }
 
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {

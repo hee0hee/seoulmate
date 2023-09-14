@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAllByAuthor(User user);
+    List<Post> findAllByAuthorId(Long id);
 
     Page<Post> findAllByAuthor(User Author, Pageable pageable);
 
@@ -21,4 +22,5 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
 
     Page<Post> findByAddress(String address, Pageable pageable);
+
 }

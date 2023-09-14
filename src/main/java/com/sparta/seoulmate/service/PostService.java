@@ -95,6 +95,12 @@ public class PostService {
         List<Post> list= postRepository.findAll();
         return PostListResponseDto.of(list);
     }
+
+    public PostListResponseDto getUserPost(Long id) {
+        List<Post> list= postRepository.findAllByAuthorId(id);
+        return PostListResponseDto.of(list);
+    }
+
     /**
      * 게시글을 검색하고 검색 결과를 페이지로 반환
      *

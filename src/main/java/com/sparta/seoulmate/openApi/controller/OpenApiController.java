@@ -46,7 +46,6 @@ public class OpenApiController {
         return ResponseEntity.ok().body(result);
     }
 
-    //서비스 데이터 단건 조회
     @PostMapping("/service/like")
     public ResponseEntity likeService(@RequestParam("svcid") String svcid, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         ItemResponseDto itemResponseDto;
@@ -69,6 +68,11 @@ public class OpenApiController {
             return ResponseEntity.badRequest().body("처리중 오류 발생 :" + e);
         }
         return ResponseEntity.ok().body(itemResponseDto);
+    }
+    @GetMapping("/like/list/{id}")
+    public ResponseEntity<ItemListResponseDto> getLikeList(@PathVariable Long id) {
+        ItemListResponseDto result = openApiService.getLikeList(id);
+        return ResponseEntity.ok().body(result);
     }
 
     @PutMapping("/update")

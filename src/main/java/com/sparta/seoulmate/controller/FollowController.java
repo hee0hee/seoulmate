@@ -33,7 +33,7 @@ public class FollowController {
     @GetMapping("/followingList")
     @ResponseBody
     public ResponseEntity<List<FollowResponseDto>> viewFollowingList(@AuthenticationPrincipal UserDetailsImpl userDetail){
-        List<FollowResponseDto> followRepositories = followService.viewFollowingList(userDetail.getUser());
+        List<FollowResponseDto> followRepositories = followService.viewFollowingList(userDetail.getUser().getId());
         return ResponseEntity.ok().body(followRepositories);
     }
 
@@ -41,7 +41,22 @@ public class FollowController {
     @GetMapping("/followerList")
     @ResponseBody
     public ResponseEntity<List<FollowResponseDto>> viewFollowerList(@AuthenticationPrincipal UserDetailsImpl userDetail){
-        List<FollowResponseDto> followRepositories = followService.viewFollowerList(userDetail.getUser());
+        List<FollowResponseDto> followRepositories = followService.viewFollowerList(userDetail.getUser().getId());
+        return ResponseEntity.ok().body(followRepositories);
+    }
+    //유저가 팔로우 한 사람 조회
+    @GetMapping("/{id}/followingList")
+    @ResponseBody
+    public ResponseEntity<List<FollowResponseDto>> findFollowingList(@PathVariable Long id){
+        List<FollowResponseDto> followRepositories = followService.viewFollowingList(id);
+        return ResponseEntity.ok().body(followRepositories);
+    }
+
+    // 유저를 팔로우 한 사람 조회
+    @GetMapping("/{id}/followerList")
+    @ResponseBody
+    public ResponseEntity<List<FollowResponseDto>> findFollowerList(@PathVariable Long id){
+        List<FollowResponseDto> followRepositories = followService.viewFollowerList(id);
         return ResponseEntity.ok().body(followRepositories);
     }
 

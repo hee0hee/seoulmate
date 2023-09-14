@@ -34,7 +34,6 @@ public class PostController {
     public ResponseEntity<ApiResponseDto> createPost(@RequestPart(value = "title") String title, @RequestPart(value = "content") String content, @Nullable @RequestPart(value = "file") List<MultipartFile> files, @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
         PostRequestDto requestDto = PostRequestDto.builder().title(title).content(content).build();
-        System.out.println(files.get(0));
         postService.createPost(requestDto, files, userDetails.getUser());
         return ResponseEntity.ok().body(new ApiResponseDto("게시글 생성 성공", HttpStatus.OK.value()));
     }
@@ -56,6 +55,12 @@ public class PostController {
     @GetMapping("/posts/all")
     public ResponseEntity<PostListResponseDto> getAllPosts() {
         PostListResponseDto result = postService.getAllPosts();
+        return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping("/posts/list/{id}")
+    public ResponseEntity<PostListResponseDto> getUserPost(@PathVariable Long id) {
+        PostListResponseDto result = postService.getUserPost(id);
         return ResponseEntity.ok().body(result);
     }
 

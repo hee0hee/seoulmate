@@ -28,14 +28,14 @@ public class FollowService {
     private final NotificationService notificationService;
 
     // 내가 팔로우 한 사람 조회
-    public List<FollowResponseDto> viewFollowingList(User user) {
-        List<Follow> followList = followRepository.findAllByUser(user);
+    public List<FollowResponseDto> viewFollowingList(Long id) {
+        List<Follow> followList = followRepository.findAllByUserId(id);
         List<FollowResponseDto> followingResponseList = new ArrayList<>();
         for (Follow follow : followList) {
             FollowResponseDto followResponseDto = FollowResponseDto.builder()
                     .id(follow.getFollowingUser().getId())
                     .nickname(follow.getFollowingUser().getNickname())
-                    .image(follow.getFollowingUser().getImage().getImageUrl())
+                    .image(follow.getFollowingUser().getImage() != null ? follow.getFollowingUser().getImage().getImageUrl() : "default")
                     .build();
             followingResponseList.add(followResponseDto);
         }
@@ -43,14 +43,14 @@ public class FollowService {
     }
 
     // 나를 팔로우 한 사람 조회
-    public List<FollowResponseDto> viewFollowerList(User user) {
-        List<Follow> followList = followRepository.findAllByFollowingUser(user);
+    public List<FollowResponseDto> viewFollowerList(Long id) {
+        List<Follow> followList = followRepository.findAllByFollowingUserId(id);
         List<FollowResponseDto> followerResponseList = new ArrayList<>();
         for (Follow follow : followList) {
             FollowResponseDto followResponseDto = FollowResponseDto.builder()
                     .id(follow.getUser().getId())
                     .nickname(follow.getUser().getNickname())
-                    .image(follow.getUser().getImage().getImageUrl())
+                    .image(follow.getUser().getImage() != null ? follow.getUser().getImage().getImageUrl() : "default")
                     .build();
             followerResponseList.add(followResponseDto);
         }
@@ -61,7 +61,7 @@ public class FollowService {
     // 내가 팔로우 한 사람의 포스트 조회
     public List<PostResponseDto> viewFollowingPostList(User user) {
         List<PostResponseDto> postList = new ArrayList<>();
-        List<Follow> followList = followRepository.findAllByUser(user); // 내가 팔로우 한 사람 목록 불러오기
+        List<Follow> followList = followRepository.findAllByUserId(user.getId()); // 내가 팔로우 한 사람 목록 불러오기
         List<User> userList = followList.stream().map((Follow::getFollowingUser)).toList(); // 내가 팔로우 한 사람 목록을 UserList에 넣어주기
         
         for (User foundUser : userList){

@@ -2,6 +2,7 @@ package com.sparta.seoulmate.openApi.dto;
 
 import com.sparta.seoulmate.dto.post.PostLikeResponseDto;
 import com.sparta.seoulmate.entity.SeoulApi;
+import com.sparta.seoulmate.entity.SeoulApiLike;
 import lombok.*;
 
 import java.util.List;
@@ -65,6 +66,35 @@ public class ItemResponseDto {
                 .REVSTDDAYNM(seoulApi.getREVSTDDAYNM())
                 .REVSTDDAY(seoulApi.getREVSTDDAY())
                 .seoulApiLikes(seoulApi.getSeoulApiLikes().stream().map(ApiLikeResponseDto::of).toList())
+                .build();
+        return itemResponseDto;
+    }
+    public static ItemResponseDto of2(SeoulApiLike seoulApiLike) {
+        ItemResponseDto itemResponseDto = ItemResponseDto.builder()
+                .GUBUN(seoulApiLike.getSeoulApi().getGUBUN())
+                .SVCID(seoulApiLike.getSeoulApi().getSVCID())
+                .MAXCLASSNM(seoulApiLike.getSeoulApi().getMAXCLASSNM())
+                .MINCLASSNM(seoulApiLike.getSeoulApi().getMINCLASSNM())
+                .SVCSTATNM(seoulApiLike.getSeoulApi().getSVCSTATNM())
+                .SVCNM(seoulApiLike.getSeoulApi().getSVCNM())
+                .PAYATNM(seoulApiLike.getSeoulApi().getPAYATNM())
+                .PLACENM(seoulApiLike.getSeoulApi().getPLACENM())
+                .USETGTINFO(seoulApiLike.getSeoulApi().getUSETGTINFO())
+                .SVCURL(seoulApiLike.getSeoulApi().getSVCURL())
+                .X(seoulApiLike.getSeoulApi().getX())
+                .Y(seoulApiLike.getSeoulApi().getY())
+                .SVCOPNBGNDT(seoulApiLike.getSeoulApi().getSVCOPNBGNDT())
+                .SVCOPNENDDT(seoulApiLike.getSeoulApi().getSVCOPNENDDT())
+                .RCPTBGNDT(seoulApiLike.getSeoulApi().getRCPTBGNDT())
+                .RCPTENDDT(seoulApiLike.getSeoulApi().getRCPTENDDT())
+                .AREANM(seoulApiLike.getSeoulApi().getAREANM())
+                .IMGURL(seoulApiLike.getSeoulApi().getIMGURL())
+                .TELNO(seoulApiLike.getSeoulApi().getTELNO())
+                .V_MIN(seoulApiLike.getSeoulApi().getV_MIN())
+                .V_MAX(seoulApiLike.getSeoulApi().getV_MAX())
+                .REVSTDDAYNM(seoulApiLike.getSeoulApi().getREVSTDDAYNM())
+                .REVSTDDAY(seoulApiLike.getSeoulApi().getREVSTDDAY())
+                .seoulApiLikes(seoulApiLike.getSeoulApi().getSeoulApiLikes().stream().map(ApiLikeResponseDto::of).toList())
                 .build();
         return itemResponseDto;
     }

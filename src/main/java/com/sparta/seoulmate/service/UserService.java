@@ -161,11 +161,17 @@ public class UserService {
     }
 
     // 프로필 조회
-    public UserProfileResponseDto getUserProfile(Long id) {
+    public UserResponseDto getUserProfile(Long id) {
         User user = userRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("해당 ID를 찾을 수 없습니다. : " + id));
-        return UserProfileResponseDto.of(user);
+        return UserResponseDto.of(user);
     }
+
+    //프론트 router 체크를 위한 로직
+    public UserResponseDto getUserInfo(User user) {
+        return UserResponseDto.of(user);
+    }
+
 
     @Transactional
     public void updatePassword (UpdatePasswordRequestDto requestDto, User user) {
@@ -237,10 +243,7 @@ public class UserService {
         }
     }
 
-    //프론트 router 체크를 위한 로직
-    public UserResponseDto getUserInfo(User user) {
-        return UserResponseDto.of(user);
-    }
+
 
     public ResponseEntity<ApiResponseDto> checkId(String username) {
         if(userRepository.findByUsername(username).isEmpty()){

@@ -42,7 +42,7 @@ public class ChatController {
     }
 
 
-    // Comment 삭제
+    // 채팅방 삭제
     @DeleteMapping("/chat")
     public ResponseEntity<ApiResponseDto> deleteChatRoom(@RequestParam String uuid, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         chatService.deleteChatRoom(uuid, userDetails.getUser());

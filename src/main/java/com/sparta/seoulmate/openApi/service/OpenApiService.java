@@ -224,4 +224,8 @@ public class OpenApiService {
         );
     }
 
+    public ItemListResponseDto getLikeList(Long id) {
+        List<SeoulApiLike> resultList= seoulApiLikeRepository.findByUserId(id);
+        return ItemListResponseDto.of2(resultList);
+    }
 }

@@ -27,6 +27,7 @@ public class PostResponseDto extends ApiResponseDto {
     private List<CommentResponseDto> comments;
     private List<PostImageResponseDto> images;
     private String author;
+    private Long authorId;
     private String authorImage;
     private List<PostLikeResponseDto> postLikes;
     public static PostResponseDto of(Post post) {
@@ -39,6 +40,7 @@ public class PostResponseDto extends ApiResponseDto {
                 .createdAt(post.getCreatedAt())
                 .modifiedAt(post.getModifiedAt())
                 .author(post.getAuthor().getNickname())
+                .authorId(post.getAuthor().getId())
                 .authorImage(
                         Optional.ofNullable(post.getAuthor().getImage())
                                 .map(Image::getImageUrl)

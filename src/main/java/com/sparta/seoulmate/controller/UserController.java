@@ -42,6 +42,14 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getUserInfo(userDetails.getUser()));
     }
 
+    // 프로필 조회
+    @GetMapping("/{id}/profile")
+    public ResponseEntity<UserResponseDto> getUserProfile(@PathVariable Long id) {
+        UserResponseDto result = userService.getUserProfile(id);
+        return ResponseEntity.ok().body(result);
+    }
+
+
     //아이디 중복체크
     @PostMapping("/{username}")
     public ResponseEntity<ApiResponseDto> checkId(@PathVariable String username) {
@@ -170,6 +178,7 @@ public class UserController {
     }
 
     // 프로필 수정(이미지)
+    @PutMapping("/profile/image")
     public ResponseEntity<ApiResponseDto> updateImage(
             @RequestPart(value = "file") MultipartFile file,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -190,12 +199,7 @@ public class UserController {
         return ResponseEntity.ok().body(responseDto);
     }
 
-    // 프로필 조회
-    @GetMapping("/{id}/profile")
-    public ResponseEntity<UserProfileResponseDto> getUserProfile(@PathVariable Long id) {
-        UserProfileResponseDto result = userService.getUserProfile(id);
-        return ResponseEntity.ok().body(result);
-    }
+
 
     // 비밀번호 수정
     @PutMapping("/password")
